@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kingslake_popup_screen/pop_up_dialog_widget.dart';
 
 void main() => runApp(
       MyApp(),
@@ -24,6 +25,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ShiftValues _shift;
+  int i = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _shift = ShiftValues.ExtendShift;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,91 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Colors.blue,
           onPressed: () {
             showDialog(
-              context: context,
-              builder: (BuildContext context) => _buildPopupDialog(context),
-            );
+                context: context, builder: (context) => ShiftPopUpWidget());
           },
         ),
       ),
-    );
-  }
-
-  Widget _buildPopupDialog(BuildContext context) {
-    ShiftValues _shift = ShiftValues.ExtendShift;
-
-    return new AlertDialog(
-      title: const Text('Manage Shift', style: TextStyle(color: Colors.blue)),
-      content: new Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ListTile(
-            title: const Text('Extend Shift'),
-            leading: Radio(
-              value: ShiftValues.ExtendShift,
-              groupValue: _shift,
-              onChanged: (ShiftValues value) {
-                setState(() {
-                  _shift = value;
-                });
-              },
-            ),
-          ),
-          ListTile(
-            title: const Text('End Shift'),
-            leading: Radio(
-              value: ShiftValues.EndShift,
-              groupValue: _shift,
-              onChanged: (ShiftValues value) {
-                setState(() {
-                  _shift = value;
-                });
-              },
-            ),
-          ),
-          new Container(
-            child: TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Leader ID',
-              ),
-            ),
-          ),
-          new Container(
-            child: TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Reason',
-              ),
-            ),
-          ),
-          new Container(
-            child: TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Minutes',
-              ),
-            ),
-          ),
-        ],
-      ),
-      actions: <Widget>[
-        new FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          textColor: Theme.of(context).primaryColor,
-          child: RaisedButton(
-            child: Text(
-              'Confirm',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            color: Colors.blue,
-            onPressed: () {},
-          ),
-        ),
-      ],
     );
   }
 }
-
-void setState(Null Function() param0) {}
